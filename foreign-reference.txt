@@ -1,0 +1,18 @@
+let codenames = require('./codenames.json');
+let assassins = require('./assassins.json');
+
+let reducedCodenames = codenames.reduce(function (obj, codename) {
+  obj[codename.contact_info] = codename;
+  return obj;
+}, {});
+
+let codeNameInserts = [];
+
+assassins.forEach(function (assassin) {
+  const codename = reducedCodenames[assassin.contact_info];
+  if (codename) {
+    codeNameInserts.push({assassin_id: assassin.id, code_name: codename.code_name});
+  }
+});
+
+knex('codenames').insert(codeNameInserts);

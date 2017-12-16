@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--My css-->
+  <link rel="stylesheet" href="/css/global.css" type="text/css">
+  <meta charset="utf-8">
+
+  <title>Killbase</title>
+</head>
+
+<body>
+  <nav class="black lighten-1" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="/" class="brand-logo">
+        <img class="nav-logo circle">Killbase<span class="red-text">.</span>
+      </a>
+      <ul>
+        <a href="/assassins-page">
+          <li class="right">Assassins</li>
+        </a>
+        <a href="/contracts-page">
+          <li class="right">Contracts</li>
+        </a>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <div class="row">
+        <div class="col s4 light">
+
+          <!--assassin image-->
+          <img src="/images/assassins.png" class="top-margin responsive-img">
+        </div>
+
+        <!-- assassin info section -->
+
+        <div class="col s5 light">
+
+
+          <h4><%= results[0].full_name %></h4>
+          <% if (results[0].code_name) { %>
+          <h5>(<%= results[0].code_name %>)
+            <% } %></h5>
+          <table>
+            <tr>
+              <td>Rating: <%= results[0].rating %></td>
+              <td>Kills: <%= results[0].kills %></td>
+            </tr>
+            <tr>
+              <td>Price: <%= results[0].price %></td>
+              <td>Age: <%= results[0].age %></td>
+            </tr>
+            <tr>
+              <td colspan="2">Weapon: <%= results[0].weapon %></td>
+            </tr>
+            <tr>
+              <td colspan="2">Contact: <%= results[0].contact_info %></td>
+            </tr>
+          </table>
+
+        </div>
+
+        <div class="col s3 light">
+          <p class="left"><i class="tiny material-icons">edit</i> Edit</p>
+          <p><i class="tiny material-icons">close</i> Delete</p>
+        </div>
+
+      </div>
+
+<!-- active contracts section -->
+
+      <div class="row">
+        <div class="col s3 light">
+          <!--target image-->
+          <img src="/images/assassins.png" class="top-margin responsive-img">
+        </div>
+        <div class="col s6 light">
+          <!--target data-->
+          <table>
+            <tr>
+              <th colspan="2">Active Contracts:</th>
+            </tr>
+            <% if (results[0].target_name) { %>
+            <tr>
+              <td>Name: <%= results[0].target_name %></td>
+              <td>Security Level: <%= results[0].target_security %></td>
+            </tr>
+            <tr>
+              <td>Target Location: <%= results[0].target_location %></td>
+              <td>Client Name: <%= results[0].client_name %></td>
+            </tr>
+            <% } %>
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <br><br>
+
+
+
+
+
+  <div class="container">
+    <div class="section">
+
+
+
+    </div>
+    <br><br>
+  </div>
+
+  <footer class="page-footer red">
+    <!-- <div class="container">
+      <div class="row">
+
+      </div>
+    </div> -->
+  </footer>
+
+
+
+
+
+
+
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+
+</body>
+
+</html>

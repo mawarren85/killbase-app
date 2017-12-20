@@ -7,6 +7,8 @@ const assassinsRouter = require('./routes/assassins-express');
 const contractsRouter = require('./routes/contracts-express');
 const path = require('path');
 
+
+// HELP ME!
 // Configure our app with our settings.
 
 // Tell our app where to find our views.

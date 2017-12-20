@@ -9,7 +9,7 @@ margin-top: 10%;
 p, li {
   margin-right: 20px;
 }
-li:hover, a:hover {
+li:hover, a:hover, .no-hov:hover {
   color: red;
   transition: 1s;
 }
@@ -48,4 +48,13 @@ h4, h4 > .small {
 }
 .header-rightp {
   padding-right: 2%
+}
+.no-pad {
+  padding: 0;
+}
+.no-hov:hover {
+  background-color: transparent;
+}
+.top-margin-small {
+  margin-top: 1%;
 }

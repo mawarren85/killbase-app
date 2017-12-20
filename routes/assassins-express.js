@@ -68,6 +68,7 @@ router.get('/:id', function(req, res) {
 
     .then(function(results) {
       //if there are contracts...
+      
       if (results.length) {
         res.render('assassin-page', {
           results: results
@@ -79,6 +80,7 @@ router.get('/:id', function(req, res) {
           .join('codenames', 'assassins.id', 'codenames.assassin_id')
 
           .then(function(results) {
+
             res.render('assassin-page', {
               results: results
             });

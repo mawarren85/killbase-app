@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-var config = require('../knexfile')['development'];
+var config = require('../knexfile')['production'];
 var knex = require('knex')(config);
 var port = process.env.PORT || 8000
 
@@ -68,7 +68,7 @@ router.get('/:id', function(req, res) {
 
     .then(function(results) {
       //if there are contracts...
-      
+
       if (results.length) {
         res.render('assassin-page', {
           results: results

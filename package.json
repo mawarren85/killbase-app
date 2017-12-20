@@ -1,10 +1,14 @@
 {
   "name": "killbase-app",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "app.js"
+  },
+  "engines": {
+    "npm": "5.4.2",
+    "node": "v8.8.0"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +19,16 @@
     "knex": "^0.14.2",
     "morgan": "^1.9.0",
     "pg": "^7.4.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mawarren85/killbase-app.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/mawarren85/killbase-app/issues"
+  },
+  "homepage": "https://github.com/mawarren85/killbase-app#readme",
+  "description": ""
 }

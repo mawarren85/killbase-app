@@ -1,42 +1,9 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
-
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!--My css-->
-  <link rel="stylesheet" href="/css/global.css" type="text/css">
-  <meta charset="utf-8">
-
-  <title>Killbase</title>
-</head>
+<% include partials/head %>
 
 <body>
-  <!-- =============   nav   ================= -->
-  <nav class="black lighten-1" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">
-      Killbase<span class="red-text">.</span>
-    </a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/assassins">Assassins</a></li>
-        <li><a href="/contracts">Contracts</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="/assassins">Assassins</a></li>
-        <li><a href="/contracts">Contracts</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
+  <% include partials/nav %>
 
   <!-- =============   main   ================= -->
 
@@ -60,46 +27,55 @@
           <!-- add a text field to create a new client? -->
 
           <form action="/contracts/<%= targetContract.id %>/updated" method="post">
+
             <div class="row">
               <div class="input-field col s7">
                 <input id="name" type="text" name="target_name" value="<%= targetContract.target_name %>">
                 <label for="name">Target Name</label>
               </div>
+
               <div class="input-field col s3">
                 <input id="seclevel" type="number" name="target_security" value="<%= targetContract.target_security %>">
                 <label for="seclevel">Security Level</label>
               </div>
             </div>
+
             <div class="row">
               <div class="input-field col s7">
                 <input id="location" type="text" name="target_location" value="<%= targetContract.target_location %>">
                 <label for="location">Target Location</label>
               </div>
+
               <div class="input-field col s3">
                 <input id="budget" type="number" name="budget" value="<%= targetContract.budget %>">
                 <label for="budget">Budget</label>
               </div>
             </div>
+
             <div class="row">
             <div class="input-field col s7">
               <input id="t-image" type="url" name="target_photo" value="<%= targetContract.target_photo %>">
               <label for="t-image">Target Image URL</label>
             </div>
           </div>
+
             <div class="row">
               <div class="input-field col s7">
                 <select id="clientvalselect" name="clients">
                 <option value="" disabled>Choose Client</option>
                 <option value="<%= targetContract.client_name %>" selected><%= targetContract.client_name %> </option>
 
-                <% for (var i=0; i<clientNames.length; i++) { %>
+                  <% for (var i=0; i<clientNames.length; i++) { %>
+
                   <% if (clientNames[i].client_name !== targetContract.client_name) { %>
+
                   <option name="client_name" value="<%= clientNames[i].client_name %>"><%= clientNames[i].client_name %></option>
-                <% } %>
-                <% } %>
-              </select>
+
+                    <% } %>
+                    <% } %>
+                </select>
                 <label for="clientvalselect">Client</label>
-                 <input type="hidden" name="client_name" id="client_name" />
+                <input type="hidden" name="client_name" id="client_name" />
 
               </div>
             </div>
@@ -110,61 +86,15 @@
             </div>
             </div>
           </form>
-
         </div>
-
-
-
-
       </div>
-
     </div>
-
-
   </div>
 
   <br><br>
 
 
-  <!-- =============   footer   ================= -->
-
-  <footer class="page-footer black lighten-1">
-  <div class="container">
-    <div class="row">
-      <div class="col l6 s12">
-        <h5 class="white-text">Killbase<span class="red-text">.</span></h5>
-        <p class="grey-text text-lighten-4">Let us do the dirty work.</p>
-
-
-      </div>
-      <div class="col l3 s12">
-        <ul>
-          <li><a class="white-text" href="/assassins">Assassins</a></li>
-        </ul>
-      </div>
-      <div class="col l3 s12">
-
-        <ul>
-          <li><a class="white-text" href="/contracts">Contracts</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="footer-copyright">
-    <div class="container">
-    Made by <span class="grey-text text-darken-1">Melissa</span>
-    </div>
-  </div>
-  </footer>
-
-
-
-
-
-  <!--Import jQuery before materialize.js-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/js/materialize.min.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
+  <% include partials/footer %>
   </body>
 
   </html>

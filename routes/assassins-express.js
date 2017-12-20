@@ -1,3 +1,6 @@
+/*jshint esversion: 6 */
+
+
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
@@ -5,22 +8,22 @@ var morgan = require('morgan');
 var config = require('../knexfile')['development'];
 var knex = require('knex')(config);
 var port = process.env.PORT || 8000
-//const assassins = require('../assassins');
 
 
-/* ============== Get ===========================*/
+
+/* ============== Get all assassins ===========================*/
 
 router.get('/', function(req, res) {
-  //res.send('You want to get ALL of the assassins? You brave.');
   knex.from('assassins').innerJoin('codenames', 'assassins.id', 'codenames.assassin_id')
 
     .then(function(results) {
-      console.log(results, 'resultsssss')
       res.render('assassins-page', {
         results: results
       });
     });
 });
+
+/* ============== New assassin page ===========================*/
 
 router.get('/new', function(req, res) {
   knex('assassins').select()
@@ -32,14 +35,15 @@ router.get('/new', function(req, res) {
     });
 });
 
+/* ============== Edit an assassin ===========================*/
+
 router.get('/:id/edit', function(req, res) {
-  let assassinId = req.params.id
+  let assassinId = req.params.id;
 
   knex('assassins')
     .where('id', assassinId)
     .join('codenames', 'codenames.assassin_id', 'assassins.id')
     .then(function(results) {
-      console.log(results, 'resultss')
 
       res.render('assassin-edit', {
         results: results
@@ -47,7 +51,7 @@ router.get('/:id/edit', function(req, res) {
     });
 });
 
-
+/* ============== Get single assassin ===========================*/
 
 router.get('/:id', function(req, res) {
   let assassinsId = req.params.id;
@@ -64,7 +68,6 @@ router.get('/:id', function(req, res) {
 
     .then(function(results) {
       //if there are contracts...
-      console.log(results, 'baaaaaaaaaaaa')
       if (results.length) {
         res.render('assassin-page', {
           results: results
@@ -78,16 +81,15 @@ router.get('/:id', function(req, res) {
           .then(function(results) {
             res.render('assassin-page', {
               results: results
-
             });
-          })
+          });
       }
     });
-})
+});
 
 
 
-/* ============== Delete ===========================*/
+/* ============== Delete an assassin ===========================*/
 
 router.get('/:id/deleted', function(req, res) {
   let assassinsId = req.params.id;
@@ -97,7 +99,7 @@ router.get('/:id/deleted', function(req, res) {
     .join('codenames', 'assassins.id', 'codenames.assassin_id')
     .then(function(results) {
       assCode = results;
-console.log(assCode, 'asssssscode')
+
       knex('assassins').where('id', assassinsId).del()
         .then(function(results) {
           knex('codenames').where('codenames.assassin_id', assassinsId)
@@ -106,14 +108,12 @@ console.log(assCode, 'asssssscode')
               res.render('assassin-deleted', {
                 assassin: assCode
               });
-            })
-        })
+            });
+        });
     });
+});
 
-})
-
-/* ============== Update ===========================*/
-
+/* ============== Update an assassin ===========================*/
 
 router.post('/:id/updated', function(req, res) {
   let assassinsId = req.params.id;
@@ -125,15 +125,15 @@ router.post('/:id/updated', function(req, res) {
     "age": req.body.age,
     "price": req.body.price,
     "kills": req.body.kills,
-    "assassin_photo": req.body.assassin_photo
-  }
+    "assassin_photo": req.body.assassin_photo,
+    "rating": req.body.rating
+  };
 
   let newCodename = {
     "assassin_id": assassinsId,
     "code_name": req.body.code_name
-  }
-  console.log(newCodename, 'new code name')
-  console.log(newAssassinInfo, 'new assassin info')
+  };
+
   knex('assassins').where('assassins.id', assassinsId)
     .update(newAssassinInfo)
     .then(function(results) {
@@ -148,17 +148,15 @@ router.post('/:id/updated', function(req, res) {
             codename: newCodename,
             assassin: newAssassinInfo
           });
-        })
+        });
     });
-})
+});
 
-/* ============== Post ===========================*/
-// let newAssassin;
-// let newCodename;
+/* ============== Add new assassin ===========================*/
 
 router.post('/added', function(req, res) {
 
-  let info = req.body
+  let info = req.body;
   let newAssassin = [];
   let newCodename = [];
 
@@ -177,17 +175,16 @@ router.post('/added', function(req, res) {
 
     .then(function(newAssassinData) {
 
-      let insertedAssassin = {}
+      let insertedAssassin = {};
 
-      insertedAssassin[newAssassinData[0].contact_info] = newAssassinData[0].id
+      insertedAssassin[newAssassinData[0].contact_info] = newAssassinData[0].id;
 
       newCodename.push({
         "assassin_id": insertedAssassin[newAssassin[0].contact_info],
         "code_name": req.body.code_name
       });
-      console.log(newCodename, 'newcode nameeee')
-      return knex('codenames').insert(newCodename)
 
+      return knex('codenames').insert(newCodename);
     })
     .then(function() {
 
@@ -196,7 +193,7 @@ router.post('/added', function(req, res) {
         codename: newCodename
       });
     });
-})
+});
 
 
 router.use(function(req, res) {

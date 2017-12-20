@@ -1,155 +1,84 @@
 <!DOCTYPE html>
 <html>
+<% include partials/head %>
 
-<head>
+  <body>
+    <% include partials/nav %>
 
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
-
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!--My css-->
-  <link rel="stylesheet" href="/css/global.css" type="text/css">
-  <meta charset="utf-8">
-
-  <title>Killbase</title>
-</head>
-
-<body>
-  <!-- =============   nav   ================= -->
-  <nav class="black lighten-1" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">
-      Killbase<span class="red-text">.</span>
-    </a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/assassins">Assassins</a></li>
-        <li><a href="/contracts">Contracts</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="/assassins">Assassins</a></li>
-        <li><a href="/contracts">Contracts</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
-
-  <!-- =============   main   ================= -->
+      <!-- =============   main   ================= -->
 
 
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
+      <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+          <br><br>
 
-      <div class="row header header-border">
-        <div class="col s12 light">
-          <h4><%= assassin.full_name %>
-          <% if (codename.code_name) { %>
+          <div class="row header header-border">
+            <div class="col s12 light">
+              <h4><%= assassin.full_name %>
+
+            <% if (codename.code_name) { %>
             (<%= codename.code_name %>) Updated!
-            <% } %></h4>
+            <% } %>
+          </h4>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col s4 light">
+
+              <!--assassin image-->
+              <img src="<%= assassin.assassin_photo %>" class="top-margin responsive-img">
+            </div>
+
+            <!-- assassin info section -->
+
+            <div class="col s6 light header">
+
+              <table class="bordered header">
+                <tr>
+                  <td><b>Rating:</b>&nbsp;&nbsp;&nbsp;
+                    <%= assassin.rating %>
+                  </td>
+                  <td><b>Kills:</b>&nbsp;&nbsp;&nbsp;
+                    <%= assassin.kills %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Price:</b>&nbsp;&nbsp;&nbsp;
+                    <%= assassin.price %>
+                  </td>
+                  <td><b>Age:</b>&nbsp;&nbsp;&nbsp;
+                    <%= assassin.age %>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2"><b>Weapon:</b>&nbsp;&nbsp;&nbsp;
+                    <%= assassin.weapon %>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2"><b>Contact:</b>&nbsp;&nbsp;&nbsp;
+                    <%= assassin.contact_info %>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="row header-extra">
+            <div class="col s12 light center-align">
+              <a href="/assassins"><button type="button" class="btn waves-effect waves-light">Back to Assassins</button></a>
+            </div>
           </div>
         </div>
-
-
-      <div class="row">
-        <div class="col s4 light">
-
-          <!--assassin image-->
-          <img src="<%= assassin.assassin_photo %>" class="top-margin responsive-img">
-        </div>
-
-        <!-- assassin info section -->
-
-        <div class="col s6 light header">
-
-            <table class="bordered header">
-              <tr>
-                <td>Rating:
-                  <%= assassin.rating %>
-                </td>
-                <td>Kills:
-                  <%= assassin.kills %>
-                </td>
-              </tr>
-              <tr>
-                <td>Price:
-                  <%= assassin.price %>
-                </td>
-                <td>Age:
-                  <%= assassin.age %>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">Weapon:
-                  <%= assassin.weapon %>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">Contact:
-                  <%= assassin.contact_info %>
-                </td>
-              </tr>
-            </table>
-        </div>
       </div>
 
-      <div class="row header-extra">
-        <div class="col s12 light center-align">
-          <a href="/assassins"><button type="button" class="btn waves-effect waves-light">Back to Assassins</button></a>
-        </div>
-      </div>
-    </div>
+      <br><br>
 
 
-  </div>
-
-  <br><br>
-
-
-  <!-- =============   footer   ================= -->
-
-  <footer class="page-footer black lighten-1">
-  <div class="container">
-    <div class="row">
-      <div class="col l6 s12">
-        <h5 class="white-text">Killbase<span class="red-text">.</span></h5>
-        <p class="grey-text text-lighten-4">Let us do the dirty work.</p>
-
-
-      </div>
-      <div class="col l3 s12">
-        <ul>
-          <li><a class="white-text" href="/assassins">Assassins</a></li>
-        </ul>
-      </div>
-      <div class="col l3 s12">
-
-        <ul>
-          <li><a class="white-text" href="/contracts">Contracts</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="footer-copyright">
-    <div class="container">
-    Made by <span class="grey-text text-darken-1">Melissa</span>
-    </div>
-  </div>
-  </footer>
-
-
-
-
-
-  <!--Import jQuery before materialize.js-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/js/materialize.min.js"></script>
-  <script type="text/javascript" src="/js/index.js"></script>
+    <% include partials/footer %>
 
   </body>
 
-  </html>
+</html>

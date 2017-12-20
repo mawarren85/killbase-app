@@ -1,150 +1,89 @@
 <!DOCTYPE html>
 <html>
+<% include partials/head %>
 
-<head>
+  <body>
+    <% include partials/nav %>
 
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
 
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!--My css-->
-  <link rel="stylesheet" href="/css/global.css" type="text/css">
-  <meta charset="utf-8">
+      <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+          <br><br>
 
-  <title>Killbase</title>
-</head>
+          <div class="row header header-border">
+            <div class="col s12 light">
+              <h4 class="header-right">Available Contracts</h4>
+              <a href="/contracts/new"><i class="small material-icons">add</i></a>
+            </div>
+          </div>
 
-<body>
-  <!-- =============   nav   ================= -->
-  <nav class="black lighten-1" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">
-      Killbase<span class="red-text">.</span>
-    </a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/assassins">Assassins</a></li>
-        <li><a href="/contracts">Contracts</a></li>
-      </ul>
+          <% for (var i=0; i<targetContracts.length; i++) { %>
 
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="/assassins">Assassins</a></li>
-        <li><a href="/contracts">Contracts</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
+            <div class="row grey lighten-3 header table-padding">
+              <div class="col s3 light">
+                <!--target image-->
+                <a href="/contracts/<%= targetContracts[i].id %>">
+                  <img src="<%= targetContracts[i].target_photo %>" class="top-margin responsive-img">
+                </a>
+              </div>
 
-  <!-- =============   main   ================= -->
+              <!--contract data-->
 
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
+              <div class="col s6 light">
+                <table class="bordered">
+                  <tr>
+                    <th colspan="2">
+                      <a href="/contracts/<%= targetContracts[i].id %>">
+                        Target Name:&nbsp;&nbsp;&nbsp;
+                        <%= targetContracts[i].target_name %></a>
+                    </th>
+                  </tr>
+                  <tr>
+                    <td><b>Client:</b>&nbsp;&nbsp;&nbsp;
+                      <%= targetContracts[i].client_name %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Target Location:</b>&nbsp;&nbsp;&nbsp;
+                      <%= targetContracts[i].target_location %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Budget:</b>&nbsp;&nbsp;&nbsp;
+                      <%= targetContracts[i].budget %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Security Level:</b>&nbsp;&nbsp;&nbsp;
+                      <%= targetContracts[i].target_security %>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="col s1 align-center">
+                <a href="/contracts/<%= targetContracts[i].id %>/edit" title="Edit">
+                  <i class="small material-icons">edit</i></a>
+              </div>
+
+              <div class="col s1 align-center">
+              <a href="/contracts/<%= targetContracts[i].id %>/deleted" title="Delete">
+                <i class="small material-icons">close</i></a>
+              </div>
+
+              <div class="col s1 align-center">
+              <a href="/contracts/<%= targetContracts[i].id %>" title="More">
+                <i class="small material-icons">menu</i></a>
+              </div>
+            </div>
+            <% } %>
+
+        </div>
+      </div>
+
       <br><br>
 
-      <div class="row header header-border">
-        <div class="col s12 light">
-          <h4 class="header-right">Available Contracts</h4><a href="/contracts/new"><i class="small material-icons">add</i></a>
-        </div>
-      </div>
-      <% for (var i=0; i<targetContracts.length; i++) { %>
-
-        <div class="row grey lighten-3 header table-padding">
-          <div class="col s3 light">
-            <!--target image-->
-            <a href="/contracts/<%= targetContracts[i].id %>">
-            <img src="<%= targetContracts[i].target_photo %>" class="top-margin responsive-img">
-          </a>
-          </div>
-          <div class="col s6 light">
-            <!--contract data-->
-            <table class="bordered">
-
-              <tr>
-                <th colspan="2"><a href="/contracts/<%= targetContracts[i].id %>">Target Name:
-                  <%= targetContracts[i].target_name %></a>
-                </th>
-              </tr>
-              <tr>
-                <td>Client:
-                  <%= targetContracts[i].client_name %>
-                </td>
-              </tr>
-              <tr>
-                <td>Target Location:
-                  <%= targetContracts[i].target_location %>
-                </td>
-              </tr>
-              <tr>
-                <td>Budget:
-                  <%= targetContracts[i].budget %>
-                </td>
-              </tr>
-              <tr>
-                <td>Security Level:
-                  <%= targetContracts[i].target_security %>
-                </td>
-              </tr>
-
-            </table>
-
-          </div>
-
-
-        <p class="left"><a href="/contracts/<%= targetContracts[i].id %>/edit"><i class="tiny material-icons">edit</i> Edit</a></p>
-
-        <p class="left"><a href="/contracts/<%= targetContracts[i].id %>/deleted"><i class="tiny material-icons">close</i>Delete</a></p>
-        </div>
-        <% } %>
-    </div>
-
-
-  </div>
-
-  <br><br>
-
-  <!-- =============   footer   ================= -->
-
-  <footer class="page-footer black lighten-1">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Killbase<span class="red-text">.</span></h5>
-          <p class="grey-text text-lighten-4">Let us do the dirty work.</p>
-
-
-        </div>
-        <div class="col l3 s12">
-          <ul>
-            <li><a class="white-text" href="/assassins">Assassins</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-
-          <ul>
-            <li><a class="white-text" href="/contracts">Contracts</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-        Made by <span class="grey-text text-darken-1">Melissa</span>
-      </div>
-    </div>
-  </footer>
-
-
-
-
-
-  <!--Import jQuery before materialize.js-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/js/materialize.min.js"></script>
-  <script type="text/javascript" src="/js/index.js"></script>
-
-</body>
+  <% include partials/footer %>
+  </body>
 
 </html>

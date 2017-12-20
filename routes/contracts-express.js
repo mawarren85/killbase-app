@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
@@ -33,21 +35,21 @@ router.get('/', function(req, res) {
               'client_name': data.client_name
             };
           });
-          clientIds.push(temp)
+          clientIds.push(temp);
 
           targetContracts.forEach(function(targetContract) {
             targetContract["client_name"] =
-              clientIds[0][targetContract.client_id].client_name
-          })
+              clientIds[0][targetContract.client_id].client_name;
+          });
 
           res.render('contracts-page', {
             targetContracts: targetContracts
           });
-        })
+        });
     });
-})
+});
 
-/* ============== create a contact page==============================*/
+/* ============== new contract form page ==============================*/
 
 router.get('/new', function(req, res) {
   knex('clients').select()
@@ -73,7 +75,7 @@ router.get('/:id/edit', function(req, res) {
     .select('contracts.client_id', 'clients.id', 'clients.client_name')
     .then(function(results) {
       clientNames = results;
-    })
+    });
 
   knex('targets')
     .join('contracts', {
@@ -87,7 +89,7 @@ router.get('/:id/edit', function(req, res) {
         if (result.id == contractId) {
           targetContract = result;
         }
-      })
+      });
       knex('clients')
         .where('clients.id', targetContract.client_id)
         .then(function(results) {
@@ -97,14 +99,14 @@ router.get('/:id/edit', function(req, res) {
             targetContract: targetContract,
             clientNames: clientNames
           });
-        })
+        });
     });
-})
+});
 
 /* ============== get a single contract page ==============================*/
 
 router.get('/:id', function(req, res) {
-  let contractId = req.params.id
+  let contractId = req.params.id;
   let targetContract;
   let clientNames;
   let assassinNames;
@@ -115,22 +117,22 @@ router.get('/:id', function(req, res) {
     .join('codenames', 'assassins.id', 'codenames.assassin_id')
     .then(function(results) {
       assassinContracts = results;
-    })
-
+    });
+console.log(assassinContracts, 'asssssssssssssss')
   knex('assassins')
     .join('codenames', 'assassins.id', 'codenames.assassin_id')
     .select('assassins.id', 'full_name', 'code_name')
     .then(function(results) {
       assassinNames = results;
 
-    })
+    });
 
   knex('clients')
     .join('contracts', 'clients.id', 'contracts.client_id')
     .select('contracts.client_id', 'clients.id', 'clients.client_name')
     .then(function(results) {
       clientNames = results;
-    })
+    });
 
   knex('targets')
     .join('contracts', {
@@ -142,9 +144,9 @@ router.get('/:id', function(req, res) {
       results.forEach(function(result) {
 
         if (result.id == contractId) {
-          targetContract = result
+          targetContract = result;
         }
-      })
+      });
 
       knex('clients')
         .where('clients.id', targetContract.client_id)
@@ -157,16 +159,16 @@ router.get('/:id', function(req, res) {
             assassinNames: assassinNames,
             assassinContracts: assassinContracts
           });
-        })
+        });
     });
-})
+});
 
 /* ============== remove assassin from contract ==============================*/
 
 
 router.post('/:id/:assassinid/removed', function(req, res) {
-  let assassinId = req.params.assassinid
-  let contractId = req.params.id
+  let assassinId = req.params.assassinid;
+  let contractId = req.params.id;
   let assassinName;
 
   knex('assassins_contracts').where({
@@ -184,9 +186,9 @@ router.post('/:id/:assassinid/removed', function(req, res) {
             assassinName: assassinName,
             contractId: contractId
           });
-        })
+        });
     });
-})
+});
 
 
 /* ============== Delete ===========================*/
@@ -218,12 +220,12 @@ router.get('/:id/deleted', function(req, res) {
                         client: client,
                         target: target
                       });
-                    })
+                    });
                 });
-            })
-        })
-    })
-})
+            });
+        });
+    });
+});
 
 
 /* ============== update a contract ===========================*/
@@ -235,7 +237,7 @@ router.get('/:id/deleted', function(req, res) {
 
 router.post('/:id/updated', function(req, res) {
   let contractId = req.params.id;
-  let bodyName = req.body.target_name
+  let bodyName = req.body.target_name;
   let clientName;
   let clientObject;
   let targetObject;
@@ -248,24 +250,24 @@ router.post('/:id/updated', function(req, res) {
     .select('id', 'client_id', 'target_id')
     .then(function(results) {
 
-      contractObject = results
+      contractObject = results;
 
       knex('targets')
         .where('id', contractObject[0].target_id)
         .then(function(results) {
-          targetObject = results
+          targetObject = results;
 
           newTargetInfo = {
             "target_name": req.body.target_name,
             "target_location": req.body.target_location,
             "target_photo": req.body.target_photo,
             "target_security": req.body.target_security
-          }
+          };
 
           if (req.body.client_name !== '') {
-            clientName = req.body.client_name
+            clientName = req.body.client_name;
           } else {
-            clientName = req.body.clients
+            clientName = req.body.clients;
           }
 
           knex('clients')
@@ -277,7 +279,7 @@ router.post('/:id/updated', function(req, res) {
                 "target_id": targetObject[0].id,
                 "client_id": clientObject[0].id,
                 "budget": req.body.budget
-              }
+              };
 
               knex('contracts').where('id', contractId)
                 .update(newContractInfo)
@@ -287,19 +289,19 @@ router.post('/:id/updated', function(req, res) {
                   knex('targets').where('id', targetObject[0].id)
                     .update(newTargetInfo)
                     .then(function(results) {
-                      let newTargetResults = results
+                      let newTargetResults = results;
 
                       res.render('contract-updated', {
                         target: newTargetInfo,
                         contract: newContractInfo,
                         clientName: clientName
                       });
-                    })
-                })
-            })
-        })
-    })
-})
+                    });
+                });
+            });
+        });
+    });
+});
 
 
 /* ============== Add a contract ===========================*/
@@ -314,7 +316,7 @@ router.post('/:id/updated', function(req, res) {
 
 router.post('/added', function(req, res) {
 
-  let info = req.body
+  let info = req.body;
   let newContract = [];
   let newTarget = [];
   let insertedTarget;
@@ -330,8 +332,8 @@ router.post('/added', function(req, res) {
   return knex('targets').insert(newTarget).returning(['id', 'target_name'])
     .then(function(newTargetData) {
 
-      insertedTarget = {}
-      insertedTarget[newTargetData[0].target_name] = newTargetData[0].id
+      insertedTarget = {};
+      insertedTarget[newTargetData[0].target_name] = newTargetData[0].id;
 
       knex('clients').where('client_name', info.client_name)
         .then(function(results) {
@@ -355,17 +357,17 @@ router.post('/added', function(req, res) {
             contract: newContract,
             client: info.client_name
           });
-        })
+        });
     });
 });
 
 
-/* ============== add new assassin to a contract ===========================*/
+/* ============== add assassin to a contract ===========================*/
 
 
 
 router.post('/:id', function(req, res) {
-  let contractId = req.params.id
+  let contractId = req.params.id;
   let targetContract;
   let clientNames;
   let assassinNames;
@@ -379,22 +381,20 @@ router.post('/:id', function(req, res) {
     .then(function(results) {
 
       if (results.length) {
-        assignedAssassin = {
+          assignedAssassin = {
           assassin_id: results[0].id,
-          contract_id: contractId
+          contract_id: contractId };
         }
-      };
+          knex('codenames')
+            .where('code_name', assassinSelected.assassins)
+            .then(function(results) {
+              if (results.length) {
+                assignedAssassin = {
+                  assassin_id: results[0].assassin_id,
+                  contract_id: contractId
+                };
+              }
 
-      knex('codenames')
-        .where('code_name', 'assassinSelected.assassins')
-        .select('assassin_id')
-        .then(function(results) {
-          if (results.length) {
-            assignedAssassin = {
-              assassin_id: results[0].id,
-              contract_id: contractId
-            }
-          }
           return knex('assassins_contracts').insert(assignedAssassin)
             .then(function() {
 
@@ -403,22 +403,21 @@ router.post('/:id', function(req, res) {
                 .join('codenames', 'assassins.id', 'codenames.assassin_id')
                 .then(function(results) {
                   assassinContracts = results;
-                })
+                });
 
               knex('assassins')
                 .join('codenames', 'assassins.id', 'codenames.assassin_id')
                 .select('assassins.id', 'full_name', 'code_name')
                 .then(function(results) {
                   assassinNames = results;
-
-                })
+                });
 
               knex('clients')
                 .join('contracts', 'clients.id', 'contracts.client_id')
                 .select('contracts.client_id', 'clients.id', 'clients.client_name')
                 .then(function(results) {
                   clientNames = results;
-                })
+                });
 
               knex('targets')
                 .join('contracts', {
@@ -430,9 +429,9 @@ router.post('/:id', function(req, res) {
                   results.forEach(function(result) {
 
                     if (result.id == contractId) {
-                      targetContract = result
-                    };
-                  })
+                      targetContract = result;
+                    }
+                  });
 
                   knex('clients')
                     .where('clients.id', targetContract.client_id)

@@ -1,283 +1,208 @@
 <!DOCTYPE html>
 <html>
+<% include partials/head %>
 
-<head>
+  <body>
+    <% include partials/nav %>
 
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+      <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+          <br><br>
 
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!--My css-->
-  <link rel="stylesheet" href="/css/global.css" type="text/css">
-  <meta charset="utf-8">
-
-  <title>Killbase</title>
-</head>
-
-<body>
-  <!-- =============   nav   ================= -->
-  <nav class="black lighten-1" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">
-      Killbase<span class="red-text">.</span>
-    </a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/assassins">Assassins</a></li>
-        <li><a href="/contracts">Contracts</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="/assassins">Assassins</a></li>
-        <li><a href="/contracts">Contracts</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
-
-  <!-- =============   main   ================= -->
-
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <div class="row">
-        <div class="col s12 light header header-border">
-          <h4><%= targetContract.target_name %></h4>
-        </div>
-      </div>
-
-
-
-
-      <div class="row header">
-        <div class="col s3 light">
-          <img src="<%= targetContract.target_photo %>" class="responsive-img">
-        </div>
-
-        <!-- ============== contract info ================ -->
-
-        <div class="col s5 light header">
-          <table class="bordered header">
-            <tr>
-              <td colspan="4">Client Name:
-                <%= targetContract.client_name %>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">Target Location:
-                <%= targetContract.target_location %>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="1">Budget:
-                <%= targetContract.budget %>
-              </td>
-              <td colspan="3>">Security Level:
-                <%= targetContract.target_security %>
-              </td>
-            </tr>
-          </table>
-
-
-
-
-
-          <!-- ============== choose assassin menu ================ -->
-
-
-          <form action="/contracts/<%= targetContract.id %>" method="post">
-            <div class="row table-pad-top">
-              <div class="input-field col s12">
-                <select id="assassinvalselect" name="assassins">
-          <option value="" disabled selected>Choose Assassin</option>
-
-          <% for (var i=0; i<assassinNames.length; i++) { %>
-            <% if (!assassinNames[i].full_name) { %>
-
-              <option name="full_name" value="<%= assassinNames[i].code_name %>"><%= assassinNames[i].code_name %></option>
-
-                <% }  else { %>
-
-            <option name="full_name" value="<%= assassinNames[i].full_name %>"><%= assassinNames[i].full_name %></option>
-
-          <% } %>
-          <% } %>
-
-          </select>
-                <label for="assassinvalselect">Assassin</label>
-                <input type="hidden" name="assassin_name" id="assassin_name" />
-
-              </div>
-              <div class="col s8 light header-left-small">
-                <button class="btn waves-effect waves-light small" type="submit" name="add">Assign Assassin</button>
-              </div>
+          <div class="row">
+            <div class="col s12 light header header-border">
+              <h4><%= targetContract.target_name %></h4>
             </div>
-          </form>
-        </div>
+          </div>
 
-        <!-- ============== edit buttons ================ -->
+          <div class="row header">
+            <div class="col s4 light">
+              <img src="<%= targetContract.target_photo %>" class="responsive-img">
+            </div>
+
+            <!-- ============== contract info ================ -->
+
+            <div class="col s5 light header">
+              <table class="bordered header">
+                <tr>
+                  <td colspan="4"><b>Client Name:</b>&nbsp;&nbsp;&nbsp;
+                    <%= targetContract.client_name %>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4"><b>Target Location:</b>&nbsp;&nbsp;&nbsp;
+                    <%= targetContract.target_location %>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1"><b>Budget:</b>&nbsp;&nbsp;&nbsp;
+                    <%= targetContract.budget %>
+                  </td>
+                  <td colspan="3>"><b>Security Level:</b>&nbsp;&nbsp;&nbsp;
+                    <%= targetContract.target_security %>
+                  </td>
+                </tr>
+              </table>
 
 
-        <div class="col s4">
-          <p class="left"><a href="/contracts/<%= targetContract.target_id %>/edit"><i class="tiny material-icons">edit</i> Edit</a></p>
-
-          <p class="left"><a href="/contracts/<%= targetContract.id %>/deleted"><i class="tiny material-icons">close</i>Delete</a></p>
-
-          <p class="left"><a href="/contracts/<%= targetContract.id %>/completed"><i class="tiny material-icons">check</i>Complete</a></p>
-        </div>
 
 
-      </div>
 
-      <!-- ============== active contracts section ================ -->
-      <!-- knex assassin_conract table-->
-      <!--assign assassin should add row to the assassin contract table-->
+              <!-- ============== choose assassin menu ================ -->
 
-      <div class="row header header-border">
-        <div class="col s12 light">
-          <h5>Contracted Assassins</h5>
-        </div>
-      </div>
-      <div class="row header">
-        <div class="col s12 light">
 
-          <% if (assassinContracts) { %>
-            <% for (let i=0; i<assassinContracts.length; i++) { %>
+              <form action="/contracts/<%= targetContract.id %>" method="post">
+                <div class="row table-pad-top">
+                  <div class="input-field col s12">
 
-              <div class="row grey lighten-3 header table-padding">
-                <div class="col s2 light">
-                  <!--target image-->
-                  <img src="<%= assassinContracts[i].assassin_photo %>" class="top-margin responsive-img">
+                    <select id="assassinvalselect" name="assassins">
+                  <option value="" disabled selected>Choose Assassin</option>
+
+                  <% for (var i=0; i<assassinNames.length; i++) { %>
+                    <% if (!assassinNames[i].full_name) { %>
+
+                    <option name="full_name" value="<%= assassinNames[i].code_name %>"><%= assassinNames[i].code_name %></option>
+
+                    <% }  else { %>
+
+                  <option name="full_name" value="<%= assassinNames[i].full_name %>"><%= assassinNames[i].full_name %></option>
+
+                  <% } %>
+                  <% } %>
+
+                  </select>
+
+                    <label for="assassinvalselect">Assassin</label>
+                    <input type="hidden" name="assassin_name" id="assassin_name" />
+
+                  </div>
+
+                  <div class="col s8 light header-left-small">
+                    <button class="btn waves-effect waves-light small" type="submit" name="add">Assign Assassin</button>
+                  </div>
                 </div>
-                <div class="col s5 light">
-                  <!--target data-->
-                  <table class="bordered header-left">
+              </form>
+            </div>
 
+            <!-- ============== edit buttons ================ -->
 
+            <div class="col s1">
+              <a href="/contracts/<%= targetContract.target_id %>/edit" title="Edit">
+              <i class="small material-icons">edit</i></a>
+            </div>
 
-                    <tr>
-                      <td colspan="3">Name:
-                        <%= assassinContracts[i].full_name %>
+            <div class="col s1">
+              <a href="/contracts/<%= targetContract.id %>/deleted" title="Delete">
+              <i class="small material-icons">close</i></a>
+            </div>
+
+            <div class="col s1">
+              <a href="/contracts/<%= targetContract.id %>/completed" title="Complete">
+              <i class="small material-icons">check</i></a>
+            </div>
+          </div>
+
+          <!-- ============== Contracted assassins ================ -->
+          <!-- knex assassin_conract table-->
+          <!--assign assassin should add row to the assassin contract table-->
+
+          <div class="row header header-border">
+            <div class="col s12 light">
+              <h5>Contracted Assassins</h5>
+            </div>
+          </div>
+
+          <div class="row header">
+            <div class="col s12 light">
+
+              <% if (assassinContracts.length > 0) { %>
+                <% for (let i=0; i<assassinContracts.length; i++) { %>
+
+                  <div class="row grey lighten-3 header table-padding">
+                    <div class="col s2 light">
+                      <!--target image-->
+                      <img src="<%= assassinContracts[i].assassin_photo %>" class="top-margin responsive-img">
+                    </div>
+
+                    <div class="col s5 light">
+                      <!--target data-->
+                      <table class="bordered header-left">
+
+                        <tr>
+                          <td colspan="3"><b>Name:</b>&nbsp;&nbsp;&nbsp;
+                            <%= assassinContracts[i].full_name %>
 
                               <% if (assassinContracts[i].code_name) { %>
                                 (<%= assassinContracts[i].code_name %>)
                                   <% } %>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="3">Rating:
-                        <%= assassinContracts[i].rating %>
-                      </td>
-                    </tr>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="3"><b>Rating:</b>&nbsp;&nbsp;&nbsp;
+                            <%= assassinContracts[i].rating %>
+                          </td>
+                        </tr>
+                      </table>
 
-                  </table>
-
-                </div>
-                <div class="col s4 light right-align">
-<!-- test ================================= -->
-
-
-
-<form action="/contracts/<%= targetContract.id %>/<%= assassinContracts[i].assassin_id %>/removed" method="post">
-  <div class="row table-pad-top">
-    <div class="input-field col s12">
-
-      <input type="hidden" name="assassin_id" value="<%= assassinContracts.assassin_id %>" />
-
-    </div>
-    <div class="col s8 light header-left-small">
-      <button class="btn-floating waves-effect waves-light btn-small" type="submit" name="add"><i class="tiny material-icons">remove</i></button>
-    </div>
-  </div>
-</form>
-
-
-
-
-                  <!-- test ================================= -->
-
-
-
-
-                </div>
-              </div>
-              <% } %>
-                <%  } else { %>
-                  <div class="row grey lighten-3 header table-padding">
-                    <div class="col s6 light">
-                      <a href="/contracts">Assign Contract</a>
                     </div>
+
+    <!-- ============= remove contracted assassin button================ -->
+
+
+                    <div class="col s4 light right-align">
+
+                      <form action="/contracts/<%= targetContract.id %>/<%= assassinContracts[i].assassin_id %>/removed" method="post">
+
+                        <div class="row table-pad-top">
+                          <div class="input-field col s12">
+
+                            <input type="hidden" name="assassin_id" value="<%= assassinContracts.assassin_id %>" />
+                          </div>
+
+                          <div class="col s12 light header-left-small">
+                            <button class="btn-floating waves-effect waves-light btn-small" type="submit" name="add"><i class="tiny material-icons">remove</i></button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+
                   </div>
-
                   <% } %>
+                    <%  } else { %>
+                      <div class="row grey lighten-3 header table-padding">
+                        <div class="col s6 light">
+                          <p><a href="/assassins">Browse Assassins</a></p>
+                        </div>
+                      </div>
+
+                      <% } %>
+
+            </div>
+
+          </div>
+
+
+
+
+          <div class="row center-align header-extra">
+            <div class="col s12 light">
+              <a href="/contracts"><button type="button" class="btn waves-effect waves-light">Back to Contracts</button></a>
+            </div>
+          </div>
+
 
         </div>
-
       </div>
 
-
-
-
-      <div class="row center-align header-extra">
-        <div class="col s12 light">
-          <a href="/contracts"><button type="button" class="btn waves-effect waves-light">Back to Contracts</button></a>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-
-  <br><br>
-
-  <!-- contracted assassins populate here....when the assign assassin button is clicked the new assassin contracte populated here as well -->
-
-
-
-
-  <!-- =============   footer   ================= -->
-
-  <footer class="page-footer black lighten-1">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Killbase<span class="red-text">.</span></h5>
-          <p class="grey-text text-lighten-4">Let us do the dirty work.</p>
-
-
-        </div>
-        <div class="col l3 s12">
-          <ul>
-            <li><a class="white-text" href="/assassins">Assassins</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-
-          <ul>
-            <li><a class="white-text" href="/contracts">Contracts</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-        Made by <span class="grey-text text-darken-1">Melissa</span>
-      </div>
-    </div>
-  </footer>
+      <br><br>
 
 
 
 
 
-  <!--Import jQuery before materialize.js-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/js/materialize.min.js"></script>
-  <script type="text/javascript" src="/js/index.js"></script>
+      <% include partials/footer %>
 
-</body>
+  </body>
 
 </html>

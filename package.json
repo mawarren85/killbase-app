@@ -4,14 +4,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "app.js"
+    "start": "./app.js"
   },
   "engines": {
     "npm": "5.4.2",
     "node": "v8.8.0"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
     "ejs": "^2.5.7",

@@ -44,7 +44,7 @@ exports.seed = function(knex, Promise) {
         // iterating through the returned data from inserting assassins..
         // this is saying if there is a value inside the email keys
         // push an object into an array where you can do a mass insert setting the assassin_id and the assassin_code_name
-
+console.log('seeding assassins')
         return knex('codenames').insert(codeNameInserts);
       });
     };

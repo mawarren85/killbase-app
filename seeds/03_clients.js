@@ -9,6 +9,7 @@ exports.seed = function(knex, Promise) {
       clients.forEach(function(client) {
         clientList.push(client)
       });
+      console.log('seeding clients')
       return knex('clients').insert(clientList);
     });
 };

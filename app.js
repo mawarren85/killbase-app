@@ -20,6 +20,9 @@ app.set('view engine', 'ejs');
 
 // Body parser is used for parsing the body JSON of your request to a body JS object.
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true})); // test
+//app.use(express.json());      //test
+//app.use(express.urlencoded()); //test
 // Morgan is used for logging which routes are being accessed.
 app.use(morgan('short'));
 

@@ -9,6 +9,7 @@ exports.up = function(knex, Promise) {
     table.integer('price').notNullable();
     table.float('rating').notNullable();
     table.integer('kills');
+    table.string('assassin_photo');
   });
 };
 

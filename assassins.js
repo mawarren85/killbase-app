@@ -6,7 +6,8 @@ module.exports = [
   "age": 52,
   "price": 40,
   "rating": 9,
-  "kills": 72
+  "kills": 72,
+  "assassin_photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Edward_Fox_%28The_Day_of_the_Jackal%2C_1973%2C_trailer_screenshot%29_01.jpg/170px-Edward_Fox_%28The_Day_of_the_Jackal%2C_1973%2C_trailer_screenshot%29_01.jpg"
   },
 
   { "full_name": "",
@@ -15,7 +16,8 @@ module.exports = [
   "age": 28,
   "price": 20,
   "rating": 6.5,
-  "kills": 35
+  "kills": 35,
+  "assassin_photo": "http://www.writeups.org/wp-content/uploads/Ghost-Dog-Forest-Whitaker-c.jpg"
   },
   { "full_name": "Jason Bourne",
   "weapon" : "Parkour",
@@ -23,7 +25,8 @@ module.exports = [
   "age": 27,
   "price": 25,
   "rating": 7,
-  "kills": 48
+  "kills": 48,
+  "assassin_photo": "https://resizing.flixster.com/T3b6F0Yy1KLNl11oPUW2ZDfa-R8=/300x300/v1.aDsxMzQxOTU7ajsxNzU1MTsxMjAwOzE0OTQ7ODQw"
   },
   { "full_name": "John Wick",
   "weapon" : "Lots of guns",
@@ -31,7 +34,8 @@ module.exports = [
   "age": 35,
   "price": 50,
   "rating": 9.5,
-  "kills": 433
+  "kills": 433,
+  "assassin_photo": "https://i.pinimg.com/736x/13/51/7b/13517bcc3ac1b7fd235103cab678e310--keanu-reeves-john-wick-movie-characters.jpg"
   },
   { "full_name": "Jules Winnfield",
   "weapon" : "Pistol",
@@ -39,7 +43,8 @@ module.exports = [
   "age": 26,
   "price": 15,
   "rating": 6.5,
-  "kills": 13
+  "kills": 13,
+  "assassin_photo": "http://www.monologuedb.com/wp-content/uploads/2011/06/Samuel-L.-Jackson-Jules-Winnfield-Pulp-Fiction.png"
   },
   { "full_name": "Leon",
   "weapon" : "Everything",
@@ -47,7 +52,8 @@ module.exports = [
   "age": 41,
   "price": 30,
   "rating": 8.5,
-  "kills": 87
+  "kills": 87,
+  "assassin_photo": "http://www.kviff.com/en/image/fancybox/photo-web/90/436/73c8-leon-the-professional.jpg"
   },
   { "full_name": "Nikita Mears",
   "weapon" : "Silenced pistols",
@@ -55,7 +61,8 @@ module.exports = [
   "age": 28,
   "price": 30,
   "rating": 7,
-  "kills": 32
+  "kills": 32,
+  "assassin_photo": "https://i.pinimg.com/originals/7f/43/bc/7f43bc55e353926d2f2652000d0a0529.jpg"
   },
   { "full_name": "Pickle Rick",
   "weapon" : "Lasers and office supplies",
@@ -63,7 +70,8 @@ module.exports = [
   "age": 60,
   "price": 0,
   "rating": 8,
-  "kills": 24
+  "kills": 24,
+  "assassin_photo": "https://res.cloudinary.com/teepublic/image/private/s--bAGLHIGo--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1502240394/production/designs/1803286_2.jpg"
   }
 
 ];

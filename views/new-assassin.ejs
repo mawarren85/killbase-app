@@ -43,21 +43,79 @@
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-      <div class="row main-row border-bottom">
-        <div class="col s7 light">
-          <a href="/assassins">
-          <img src="/images/assassins.png" class="responsive-img top-margin">
-          <h3 class="center-align">Assassins</h3></a>
-        </div>
-        <div class="col s4 light offset-s1">
-          <a href="/contracts">
-          <img src="/images/contracts.png" class="responsive-img">
-          <h3 class="center-align">Contracts</h3></a>
-        </div>
-      </div>
+      <div class="row header header-border">
+        <div class="col s12 light">
+      <h4>New Assassin</h4>
     </div>
-    <br><br>
   </div>
+      <div class="row">
+        <div class="col s9 light">
+
+          <!--new assassin form-->
+          <form  class="row grey lighten-3  table-padding header-left" action="/assassins/added" method="post">
+          <div class="row">
+            <div class="input-field col s7">
+              <input id="name" type="text" name="full_name">
+              <label for="name">Name</label>
+            </div>
+            <div class="input-field col s3">
+              <input id="age" type="number" name="age">
+              <label for="age">Age</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s7">
+              <input id="codename" type="text" name="code_name">
+              <label for="codename">Codename</label>
+            </div>
+            <div class="input-field col s3">
+              <input id="price" type="number" name="price">
+              <label for="price">Price</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s7">
+              <input id="assassin_photo" type="url" name="assassin_photo">
+              <label for="assassin_photo">Profile Image URL</label>
+            </div>
+            <div class="input-field col s3">
+              <input id="rating" type="number" name="rating">
+              <label for="rating">Rating</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s7">
+              <input id="weapon" type="text" name="weapon">
+              <label for="weapon">Weapon of Choice</label>
+            </div>
+            <div class="input-field col s3">
+              <input id="kills" type="number" name="kills">
+              <label for="kills">Kills</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s7">
+              <input id="contact" type="email" name="contact_info">
+              <label for="contact">Contact Info</label>
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="add">Add Assassin</button>
+          </div>
+        </form>
+
+        </div>
+
+
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
   <br><br>
 
   <!-- =============   footer   ================= -->
@@ -89,7 +147,7 @@
     Made by <span class="grey-text text-darken-1">Melissa</span>
     </div>
   </div>
-</footer>
+  </footer>
 
 
 
@@ -100,6 +158,6 @@
   <script type="text/javascript" src="/js/materialize.min.js"></script>
   <script type="text/javascript" src="/js/index.js"></script>
 
-</body>
+  </body>
 
-</html>
+  </html>

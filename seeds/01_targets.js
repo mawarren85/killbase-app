@@ -10,7 +10,7 @@ exports.seed = function(knex, Promise) {
       targets.forEach(function(target) {
         targetData.push(target);
       });
-      console.log(targetData);
+      console.log('seeding targets');
 
       return knex('targets').insert(targetData);
     });

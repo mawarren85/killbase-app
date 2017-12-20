@@ -40,70 +40,78 @@
 
   <!-- =============   main   ================= -->
 
+
+
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
 
-      <div class="row header header-border">
-        <div class="col s12 light">
-          <h4 class="header-right">Available Contracts</h4><a href="/contracts/new"><i class="small material-icons">add</i></a>
+      <div class="row">
+        <div class="col s12 light header header-border">
+          <h4><%= assassin[0].full_name %>
+      <% if (codename[0].code_name) { %>
+        (<%= codename[0].code_name %>) Added!
+      <% } %> </h4>
         </div>
       </div>
-      <% for (var i=0; i<targetContracts.length; i++) { %>
 
-        <div class="row grey lighten-3 header table-padding">
-          <div class="col s3 light">
-            <!--target image-->
-            <a href="/contracts/<%= targetContracts[i].id %>">
-            <img src="<%= targetContracts[i].target_photo %>" class="top-margin responsive-img">
-          </a>
-          </div>
-          <div class="col s6 light">
-            <!--contract data-->
-            <table class="bordered">
-
-              <tr>
-                <th colspan="2"><a href="/contracts/<%= targetContracts[i].id %>">Target Name:
-                  <%= targetContracts[i].target_name %></a>
-                </th>
-              </tr>
-              <tr>
-                <td>Client:
-                  <%= targetContracts[i].client_name %>
-                </td>
-              </tr>
-              <tr>
-                <td>Target Location:
-                  <%= targetContracts[i].target_location %>
-                </td>
-              </tr>
-              <tr>
-                <td>Budget:
-                  <%= targetContracts[i].budget %>
-                </td>
-              </tr>
-              <tr>
-                <td>Security Level:
-                  <%= targetContracts[i].target_security %>
-                </td>
-              </tr>
-
-            </table>
-
-          </div>
-
-
-        <p class="left"><a href="/contracts/<%= targetContracts[i].id %>/edit"><i class="tiny material-icons">edit</i> Edit</a></p>
-
-        <p class="left"><a href="/contracts/<%= targetContracts[i].id %>/deleted"><i class="tiny material-icons">close</i>Delete</a></p>
+      <!-- image for new assassin added -->
+      <div class="row header">
+        <div class="col s4 light">
+          <img src="<%= assassin[0].assassin_photo %>" class="responsive-img">
         </div>
-        <% } %>
+        <!--new assassin added-->
+        <div class="col s6 light">
+          <table class="header bordered">
+            <tr>
+              <td>Rating:
+                <%= assassin[0].rating %>
+              </td>
+              <td>Kills:
+                <%= assassin[0].kills %>
+              </td>
+            </tr>
+            <tr>
+              <td>Price:
+                <%= assassin[0].price %>
+              </td>
+              <td>Age:
+                <%= assassin[0].age %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Weapon:
+                <%= assassin[0].weapon %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Contact:
+                <%= assassin[0].contact_info %>
+              </td>
+            </tr>
+          </table>
+          <!-- </div> -->
+        </div>
+
+
+      </div>
+
+
+      <div class="row header center-align">
+        <div class="col s12 light">
+
+          <a href="/assassins"><button type="button" class="btn waves-effect waves-light">Back to Assassins</button></a>
+        </div>
+      </div>
+
     </div>
-
-
   </div>
 
   <br><br>
+
+
+
+
 
   <!-- =============   footer   ================= -->
 

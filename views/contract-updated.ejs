@@ -43,22 +43,58 @@
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-      <div class="row main-row border-bottom">
-        <div class="col s7 light">
-          <a href="/assassins">
-          <img src="/images/assassins.png" class="responsive-img top-margin">
-          <h3 class="center-align">Assassins</h3></a>
+
+      <div class="row header header-border">
+        <div class="col s12 light">
+          <h4>Contract Updated!</h4>
         </div>
-        <div class="col s4 light offset-s1">
-          <a href="/contracts">
-          <img src="/images/contracts.png" class="responsive-img">
-          <h3 class="center-align">Contracts</h3></a>
+      </div>
+      <!-- image for target in updated contract -->
+      <div class="row header-extra">
+        <div class="col s4 light">
+          <img src="<%= target.target_photo %>" class="responsive-img">
+        </div>
+        <!--new assassin added-->
+        <div class="col s6 light">
+
+          <table class="bordered header-extra">
+            <tr>
+              <td>Target Name:
+                <%= target.target_name %>
+              </td>
+              <td>Security Level:
+                <%= target.target_security %>
+              </td>
+            </tr>
+            <tr>
+              <td>Target Location:
+                <%= target.target_location %>
+              </td>
+              <td>Budget:
+                <%= contract.budget %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Client Name:
+                <%= clientName %>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row header-extra center-align">
+        <div class="col s12 light">
+          <a href="/contracts"><button type="button" class="btn waves-effect waves-light header-extra">Back to Contracts</button></a>
         </div>
       </div>
     </div>
-    <br><br>
+
+
   </div>
+
   <br><br>
+
+
 
   <!-- =============   footer   ================= -->
 
@@ -89,7 +125,7 @@
     Made by <span class="grey-text text-darken-1">Melissa</span>
     </div>
   </div>
-</footer>
+  </footer>
 
 
 
@@ -100,6 +136,6 @@
   <script type="text/javascript" src="/js/materialize.min.js"></script>
   <script type="text/javascript" src="/js/index.js"></script>
 
-</body>
+  </body>
 
-</html>
+  </html>

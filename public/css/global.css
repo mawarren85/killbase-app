@@ -1,16 +1,10 @@
-.nav-logo {
-  background-image: url('../images/assassinLogo.jpg');
-  height: 60px;
-  width: 60px;
-  border-radius: 60px;
-  border: 1px solid red;
-  background-size: cover;
-  position: relative;
-  right: 15%;
-  top: 15px;
+
+.main-row {
+  padding-top: 10%;
+  /* margin-bottom: 30%; */
 }
 .top-margin {
-margin-top: 8%;
+margin-top: 10%;
 }
 p, li {
   margin-right: 20px;
@@ -18,4 +12,37 @@ p, li {
 li:hover, a:hover {
   color: red;
   transition: 1s;
+}
+h4, h4 > .small {
+  display: inline;
+}
+.header {
+  margin-bottom: 5%;
+}
+.header-right {
+  margin-right: 2%;
+}
+.header-oneline {
+  float: left;
+}
+.header-border {
+  border-bottom: solid 1px lightgrey;
+}
+.table-margin {
+  margin-top: 4%
+}
+.table-padding {
+  padding: 2%;
+}
+.header-left {
+  padding-left: 10%;
+}
+.header-extra {
+  margin-bottom: 10%;
+}
+.header-left-small {
+  padding-left: 3%;
+}
+.table-pad-top {
+  padding-top: 4%;
 }

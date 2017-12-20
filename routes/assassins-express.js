@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
@@ -11,79 +10,192 @@ var port = process.env.PORT || 8000
 
 /* ============== Get ===========================*/
 
-
 router.get('/', function(req, res) {
   //res.send('You want to get ALL of the assassins? You brave.');
   knex.from('assassins').innerJoin('codenames', 'assassins.id', 'codenames.assassin_id')
 
     .then(function(results) {
       console.log(results, 'resultsssss')
-      res.render('assassins-page', {results: results});
+      res.render('assassins-page', {
+        results: results
+      });
     });
 });
+
+router.get('/new', function(req, res) {
+  knex('assassins').select()
+    .then(function(results) {
+
+      res.render('new-assassin', {
+        results: results
+      });
+    });
+});
+
+router.get('/:id/edit', function(req, res) {
+  let assassinId = req.params.id
+
+  knex('assassins')
+    .where('id', assassinId)
+    .join('codenames', 'codenames.assassin_id', 'assassins.id')
+    .then(function(results) {
+      console.log(results, 'resultss')
+
+      res.render('assassin-edit', {
+        results: results
+      });
+    });
+});
+
+
 
 router.get('/:id', function(req, res) {
   let assassinsId = req.params.id;
   let assassinsCodenames;
   let assassinsContractsContracts;
 
-   knex('assassins')
-   .where('assassins.id', assassinsId)
-   .join('codenames', 'assassins.id', 'codenames.assassin_id')
-   .join('assassins_contracts', 'assassins_contracts.assassin_id', 'assassins.id')
-   .join('contracts', 'assassins_contracts.contract_id', 'contracts.id')
-   .join('targets', 'targets.id', 'contracts.target_id')
-   .join('clients', 'contracts.client_id', 'clients.id')
+  knex('assassins')
+    .where('assassins.id', assassinsId)
+    .join('codenames', 'assassins.id', 'codenames.assassin_id')
+    .join('assassins_contracts', 'assassins_contracts.assassin_id', 'assassins.id')
+    .join('contracts', 'assassins_contracts.contract_id', 'contracts.id')
+    .join('targets', 'targets.id', 'contracts.target_id')
+    .join('clients', 'contracts.client_id', 'clients.id')
 
     .then(function(results) {
-      console.log(results.length,'baaaaaaaaaaaa')
-      if(results.length) {
-          res.render('assassin-page', {results: results});
-      }
-      knex('assassins')
-      .where('assassins.id', assassinsId)
-      .join('codenames', 'assassins.id', 'codenames.assassin_id')
+      //if there are contracts...
+      console.log(results, 'baaaaaaaaaaaa')
+      if (results.length) {
+        res.render('assassin-page', {
+          results: results
+        });
+      } else {
+        //if there are not contracts...
+        knex('assassins')
+          .where('assassins.id', assassinsId)
+          .join('codenames', 'assassins.id', 'codenames.assassin_id')
 
-      .then(function(results) {
-        res.render('assassin-page', {results: results});
-      })
+          .then(function(results) {
+            res.render('assassin-page', {
+              results: results
+
+            });
+          })
+      }
     });
 })
+
 
 
 /* ============== Delete ===========================*/
 
-router.delete('/assassins/:id', function(req, res) {
+router.get('/:id/deleted', function(req, res) {
   let assassinsId = req.params.id;
-  knex('assassins').where('id', assassinsId).del()
+  let assCode;
+
+  knex('assassins').where('id', assassinsId)
+    .join('codenames', 'assassins.id', 'codenames.assassin_id')
     .then(function(results) {
-      res.send(results);
+      assCode = results;
+console.log(assCode, 'asssssscode')
+      knex('assassins').where('id', assassinsId).del()
+        .then(function(results) {
+          knex('codenames').where('codenames.assassin_id', assassinsId)
+            .then(function(results) {
+
+              res.render('assassin-deleted', {
+                assassin: assCode
+              });
+            })
+        })
     });
 
 })
 
-/* ============== Patch ===========================*/
+/* ============== Update ===========================*/
 
-router.patch('/assassins/:id', function(req, res) {
+
+router.post('/:id/updated', function(req, res) {
   let assassinsId = req.params.id;
 
-   knex('assassins').where('id', assassinsId)
-     .update(req.body)
-     .then(function(results) {
-       res.send(results);
-     });
+  let newAssassinInfo = {
+    "full_name": req.body.full_name,
+    "weapon": req.body.weapon,
+    "contact_info": req.body.contact_info,
+    "age": req.body.age,
+    "price": req.body.price,
+    "kills": req.body.kills,
+    "assassin_photo": req.body.assassin_photo
+  }
+
+  let newCodename = {
+    "assassin_id": assassinsId,
+    "code_name": req.body.code_name
+  }
+  console.log(newCodename, 'new code name')
+  console.log(newAssassinInfo, 'new assassin info')
+  knex('assassins').where('assassins.id', assassinsId)
+    .update(newAssassinInfo)
+    .then(function(results) {
+
+    })
+    .then(function(results) {
+      knex('codenames').where('codenames.assassin_id', assassinsId)
+        .update(newCodename)
+
+        .then(function(results) {
+          res.render('assassin-updated', {
+            codename: newCodename,
+            assassin: newAssassinInfo
+          });
+        })
+    });
 })
 
 /* ============== Post ===========================*/
+// let newAssassin;
+// let newCodename;
 
-router.post('/add', function(req, res) {
-  let newAssassin = []
-  newAssassin.push(req.body);
+router.post('/added', function(req, res) {
 
-  knex('assassins').insert(newAssassin)
-  .then(function(results) {
-    res.send(results);
+  let info = req.body
+  let newAssassin = [];
+  let newCodename = [];
+
+  newAssassin.push({
+    "full_name": info.full_name,
+    "weapon": info.weapon,
+    "contact_info": info.contact_info,
+    "age": info.age,
+    "price": info.price,
+    "rating": info.rating,
+    "kills": info.kills,
+    "assassin_photo": info.assassin_photo
   });
+
+  return knex('assassins').insert(newAssassin).returning(['id', 'contact_info'])
+
+    .then(function(newAssassinData) {
+
+      let insertedAssassin = {}
+
+      insertedAssassin[newAssassinData[0].contact_info] = newAssassinData[0].id
+
+      newCodename.push({
+        "assassin_id": insertedAssassin[newAssassin[0].contact_info],
+        "code_name": req.body.code_name
+      });
+      console.log(newCodename, 'newcode nameeee')
+      return knex('codenames').insert(newCodename)
+
+    })
+    .then(function() {
+
+      res.render('assassin-added', {
+        assassin: newAssassin,
+        codename: newCodename
+      });
+    });
 })
 
 
